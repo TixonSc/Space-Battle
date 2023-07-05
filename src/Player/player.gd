@@ -1,20 +1,32 @@
 class_name Player
 extends BaseObject
 
-signal bullet_shot(bullet_scene, location)
+signal bullet_shot(bullet_scene, location, direction, velocity)
 
-@onready var bullet_scene = preload("res://Bullet/bullet.tscn")
 @onready var muzzle = $Muzzle
+@onready var bullet_scene = preload("res://Bullet/bullet.tscn")
 
 @export var bullet_velocity = 1000
+
+const COOLDAWN = 0.17
+var timer = COOLDAWN
+
+func _process(delta):
+	if delta > timer:
+		if Input.is_action_pressed("shoot"):
+			shoot()
+	else:
+		timer -= delta	
+	_move()
+	_rotate()
 
 func _move():
 	var direction = Vector2(cos(rotation), sin(rotation))
 	var boost = mass*(mass/10)
 	if Input.is_action_pressed("strafe_right"):
-		apply_central_impulse(direction.rotated(-PI/2)*boost)
-	if Input.is_action_pressed("strafe_left"):
 		apply_central_impulse(direction.rotated(PI/2)*boost)
+	if Input.is_action_pressed("strafe_left"):
+		apply_central_impulse(direction.rotated(-PI/2)*boost)
 	if Input.is_action_pressed("move_forward"):
 		apply_central_impulse(direction*boost)
 	if Input.is_action_pressed("move_back"):
@@ -34,12 +46,9 @@ func _rotate():
 func shoot():
 	bullet_shot.emit(
 		bullet_scene, 
-		muzzle.global_position
+		muzzle.global_position,
+		Vector2(cos(rotation), sin(rotation)),
+		bullet_velocity + linear_velocity.length()
 	)
+	timer = COOLDAWN
 
-func _process(delta):
-	_move()
-	_rotate()
-	if Input.is_action_pressed("shoot"):
-		shoot()
-	

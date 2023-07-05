@@ -9,7 +9,6 @@ mass = 2.0
 linear_damp = 0.5
 angular_damp = 0.5
 script = ExtResource("2_eswpy")
-durability_cap = 10
 
 [node name="CollisionPolygon2D" parent="." index="0"]
 rotation = 1.57079

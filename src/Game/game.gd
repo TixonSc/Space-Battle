@@ -9,9 +9,11 @@ func _ready():
 	player = get_tree().get_first_node_in_group("player")
 	assert(player!=null)
 	player.global_position = player_spawn_pos.global_position
-	player.bullet_shot.connet(_on_player_bullet_shot)
+	player.bullet_shot.connect(_on_player_bullet_shot)
 	
-func _on_player_bullet_shot(bullet_scene, location):
+func _on_player_bullet_shot(bullet_scene, location, direction: Vector2, bullet_velocity):
 	var bullet = bullet_scene.instantiate()
-	bullet.position = location
+	bullet.global_position = location
+	bullet.rotation = direction.angle()
+	bullet.linear_velocity = direction * bullet_velocity
 	bullet_container.add_child(bullet)
