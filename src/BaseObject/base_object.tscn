@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwg3kjlbcc7g0"]
+
+[ext_resource type="Script" path="res://BaseObject/base_object.gd" id="1_nvrex"]
+
+[node name="BaseObject" type="RigidBody2D"]
+gravity_scale = 0.0
+max_contacts_reported = 2
+contact_monitor = true
+script = ExtResource("1_nvrex")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+[node name="Label" type="Label" parent="."]
+offset_left = -49.0
+offset_top = -65.0
+offset_right = 48.0
+offset_bottom = -39.0
+text = "ObjectName"
