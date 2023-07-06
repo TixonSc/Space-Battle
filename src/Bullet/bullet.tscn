@@ -1,25 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5kjoilydl78j"]
+[gd_scene load_steps=5 format=3 uid="uid://c5kjoilydl78j"]
 
 [ext_resource type="PackedScene" uid="uid://bwg3kjlbcc7g0" path="res://BaseObject/base_object.tscn" id="1_7k7no"]
 [ext_resource type="Script" path="res://Bullet/bullet.gd" id="2_eswpy"]
 [ext_resource type="Texture2D" uid="uid://badunodu1vl3s" path="res://Bullet/Projectile m.png" id="3_chw3t"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vtido"]
+size = Vector2(8, 4)
+
 [node name="Bullet" instance=ExtResource("1_7k7no")]
-mass = 2.0
-linear_damp = 0.5
-angular_damp = 0.5
 script = ExtResource("2_eswpy")
 
-[node name="CollisionPolygon2D" parent="." index="0"]
-rotation = 1.57079
-polygon = PackedVector2Array(-2, 4, -2, -4, 2, -4, 2, 4)
-
-[node name="Label" parent="." index="1"]
+[node name="Label" parent="." index="0"]
 rotation = 1.57079
 pivot_offset = Vector2(49, 64)
 text = "bullet"
 metadata/_edit_use_anchors_ = true
 
-[node name="Sprite2D" parent="." index="2"]
+[node name="Sprite2D" parent="." index="1"]
 rotation = 1.57079
 texture = ExtResource("3_chw3t")
+
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource("RectangleShape2D_vtido")

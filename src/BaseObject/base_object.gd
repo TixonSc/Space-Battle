@@ -7,24 +7,31 @@ var durability
 
 func _ready():
 	durability = durability_cap
-	print(str(name) + " = " + str(durability))
+	my__info()
 
-func _physics_process(delta):
-	var collision_info = move_and_collide(linear_velocity * delta)
+
+func my__info():
+	print(" _INFO_ " + str(name) + " dur: " + str(durability) + " mass: " + str(mass))	
 
 func destruct():
+	print(str(name) + " DESTRUCTED.")
 	queue_free()
 
 func take_damage(damage):
+	print(name + " TAKE_DAMAGE " + str(damage))
+	print(name + " DP: " + str(durability))
 	if (damage > durability):
 		destruct()
 	else:
 		durability -= damage
-		print(name + " <<< damaged on " + str(damage))
-		print(name + " has >>> " + str(durability))
-		print("----")
+
+func damage_calculate(body):
+	var difference = body.linear_velocity.distance_to(linear_velocity)
+	print("\t\t" + str(difference) + "  DIFF")
+	var damage = difference * get_process_delta_time()
+	return damage
 
 func _on_body_entered(body: BaseObject):
-	var difference = body.linear_velocity.distance_to(linear_velocity)
-	take_damage(difference * body.mass)
-	body.take_damage(difference * mass)
+	print(name + " _on_body_entered by " + body.name)
+	body.take_damage(damage_calculate(body))
+	print("_" + name + "_on_body_entered.")

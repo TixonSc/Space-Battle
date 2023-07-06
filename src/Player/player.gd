@@ -6,7 +6,7 @@ signal bullet_shot(bullet_scene, location, direction, velocity)
 @onready var muzzle = $Muzzle
 @onready var bullet_scene = preload("res://Bullet/bullet.tscn")
 
-@export var bullet_velocity = 1000
+@export var bullet_velocity = 2048
 
 const COOLDAWN = 0.17
 var timer = COOLDAWN
@@ -16,13 +16,13 @@ func _process(delta):
 		if Input.is_action_pressed("shoot"):
 			shoot()
 	else:
-		timer -= delta	
+		timer -= delta
 	_move()
 	_rotate()
 
 func _move():
 	var direction = Vector2(cos(rotation), sin(rotation))
-	var boost = mass*(mass/10)
+	var boost = mass*10
 	if Input.is_action_pressed("strafe_right"):
 		apply_central_impulse(direction.rotated(PI/2)*boost)
 	if Input.is_action_pressed("strafe_left"):
@@ -35,7 +35,7 @@ func _move():
 		apply_central_impulse(-linear_velocity.normalized()*boost)
 
 func _rotate():
-	var boost = mass*mass
+	var boost = mass * 100
 	if Input.is_action_pressed("rotate_right"):
 		apply_torque_impulse(boost)
 	if Input.is_action_pressed("rotate_left"):
@@ -51,4 +51,3 @@ func shoot():
 		bullet_velocity + linear_velocity.length()
 	)
 	timer = COOLDAWN
-
