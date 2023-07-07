@@ -13,7 +13,6 @@ position = Vector2(469, 255)
 [node name="BulletContainer" type="Node2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("3_tymla")]
-bullet_velocity = 2048
 
 [node name="MainCamera" type="Camera2D" parent="Player"]
 

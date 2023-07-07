@@ -8,12 +8,12 @@
 points = PackedVector2Array(-23, -30, -23, 30, 30, 0)
 
 [node name="Player" groups=["player"] instance=ExtResource("1_m8q72")]
-mass = 32768.0
+mass = 4000.0
 linear_damp = 0.5
 angular_damp = 2.0
 script = ExtResource("2_hgwyf")
 bullet_velocity = 2048
-durability_cap = 32768
+durability_cap = 4000
 
 [node name="Label" parent="." index="0"]
 offset_left = -48.6659

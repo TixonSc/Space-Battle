@@ -10,13 +10,12 @@ func _ready():
 	durability = durability_cap
 	my__info()
 
+func _process(delta):
+	if (linear_velocity.length() < 1/delta):
+		destruct()
+
 func damage_calculate(body):
 	var difference = body.linear_velocity.distance_to(linear_velocity)
 	print("\t" + str(difference) + " its DIFF")
 	var damage = difference * get_process_delta_time()
 	return damage * damage_boost
-
-func _process(delta):
-	if (linear_velocity.length() < 1/delta):
-		destruct()
-

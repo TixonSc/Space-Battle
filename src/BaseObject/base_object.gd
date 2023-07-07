@@ -1,6 +1,7 @@
 class_name BaseObject
 extends RigidBody2D
 
+@export var material_density = 1
 @export var durability_cap = 1
 
 var durability
