@@ -9,6 +9,8 @@ size = Vector2(8, 4)
 
 [node name="Bullet" instance=ExtResource("1_7k7no")]
 script = ExtResource("2_eswpy")
+material_density = 4.5
+damage_boost = 6
 
 [node name="Label" parent="." index="0"]
 rotation = 1.57079

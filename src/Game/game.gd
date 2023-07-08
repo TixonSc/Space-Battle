@@ -8,7 +8,7 @@ var player = null
 func _ready():
 	player = get_tree().get_first_node_in_group("player")
 	assert(player!=null)
-	player.global_position = player_spawn_pos.global_position
+	player.position = player_spawn_pos.position
 	player.bullet_shot.connect(_on_player_bullet_shot)
 	
 func _on_player_bullet_shot(bullet_scene, location, direction: Vector2, bullet_velocity):

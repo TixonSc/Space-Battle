@@ -1,38 +1,49 @@
 class_name BaseObject
 extends RigidBody2D
 
-@export var material_density = 1
-@export var durability_cap = 1
+@export var material_density = 1.0
+@export var damage_boost = 1.0
 
+var durability_cap
 var durability
 
 func _ready():
+	_init_mass()
+	durability_cap = mass * material_density
 	durability = durability_cap
 	my__info()
 
 
+func _init_mass():
+	mass = 1
+
 func my__info():
-	print(" _INFO_ " + str(name) + " dur: " + str(durability) + " mass: " + str(mass))	
+	print("\n_SPAWN_INFO_ " + str(name) + "\n\tdur: " + str(durability) + "\n\tmass: " + str(mass))	
 
 func destruct():
-	print(str(name) + " DESTRUCTED.")
+	print("\tDESTRUCTED " + str(name))
 	queue_free()
 
 func take_damage(damage):
-	print(name + " TAKE_DAMAGE " + str(damage))
-	print(name + " DP: " + str(durability))
 	if (damage > durability):
 		destruct()
 	else:
 		durability -= damage
 
 func damage_calculate(body):
-	var difference = body.linear_velocity.distance_to(linear_velocity)
-	print("\t\t" + str(difference) + "  DIFF")
-	var damage = difference * get_process_delta_time()
+	const K = 1000
+	var diff = (impulse() + body.impulse()) / (mass + body.mass)
+	var damage = (
+		(impulse().length() - diff.length())
+		/ K * body.damage_boost / material_density * body.material_density
+	)
+	print("\tCALC_DAMAGE:" + str(damage))
 	return damage
 
+func impulse() -> Vector2:
+	return linear_velocity * mass
+
 func _on_body_entered(body: BaseObject):
-	print(name + " _on_body_entered by " + body.name)
-	body.take_damage(damage_calculate(body))
-	print("_" + name + "_on_body_entered.")
+	print("\n" + name + " _on_body_entered()")
+	take_damage(damage_calculate(body))
+	print("\t\t" + name + " -end.\n")

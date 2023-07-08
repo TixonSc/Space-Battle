@@ -13,7 +13,8 @@ linear_damp = 0.5
 angular_damp = 2.0
 script = ExtResource("2_hgwyf")
 bullet_velocity = 2048
-durability_cap = 4000
+material_density = 3.0
+damage_boost = 2.0
 
 [node name="Label" parent="." index="0"]
 offset_left = -48.6659

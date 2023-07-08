@@ -11,6 +11,12 @@ signal bullet_shot(bullet_scene, location, direction, velocity)
 const COOLDAWN = 0.17
 var timer = COOLDAWN
 
+
+func _ready():
+	durability_cap = 4000 * material_density
+	durability = durability_cap
+	my__info()
+
 func _process(delta):
 	if delta > timer:
 		if Input.is_action_pressed("shoot"):
@@ -19,6 +25,7 @@ func _process(delta):
 		timer -= delta
 	_move()
 	_rotate()
+	
 
 func _move():
 	var direction = Vector2(cos(rotation), sin(rotation))

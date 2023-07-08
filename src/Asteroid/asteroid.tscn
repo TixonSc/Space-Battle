@@ -10,6 +10,8 @@ radius = 256.0
 [node name="Asteroid" instance=ExtResource("1_8vji2")]
 script = ExtResource("2_s3alt")
 size_lvl = 6
+material_density = 1.4
+damage_boost = 0.7
 
 [node name="Label" parent="." index="0"]
 modulate = Color(0, 0, 0, 1)
